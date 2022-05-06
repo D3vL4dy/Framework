@@ -30,7 +30,6 @@ public class BoardModifyServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		//입력
 		String bno = request.getParameter("bno");
 		String title = request.getParameter("title");
@@ -39,15 +38,13 @@ public class BoardModifyServlet extends HttpServlet {
 		
 		String url = request.getContextPath()+"/board/detail?bno="+bno;
 				
-		
 		//처리
-		Board board = new Board();
+		Board board = dataSource.getBoardList().get(bno);
 		
 		board.setTitle(title);
 		board.setWriter(writer);
 		board.setContent(content);
 		board.setRegDate(new Date());
-		
 		
 		//memberService.regist(member); <-----DB저장
 			

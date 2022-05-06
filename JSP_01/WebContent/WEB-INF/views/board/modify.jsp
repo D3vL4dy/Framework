@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>게시글 수정</h1>
-	<form action="modify" method="post" >
+	<form action="modify?bno=${board.bno}" method="post" >
 		제목 : <input type="text" name="title" value="${board.title }"/><br/>
 		작성자 : <input type="text" name="writer" value="${board.writer }"/><br/>
 		내용 : <textarea rows="" cols="" name="content" value="${board.content }"></textarea>
