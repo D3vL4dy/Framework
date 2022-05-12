@@ -15,4 +15,6 @@ public interface MemberDAO {
 	// 오버로딩 : 기능의 확장
 	List<MemberVO> selectMemberList(SqlSession session, Criteria cri) throws Exception; // 잘라준 것
 
+	// 일반 리스트 전체 개수
+	int selectMemberListCount(SqlSession session) throws Exception;
 }
