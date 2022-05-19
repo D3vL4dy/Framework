@@ -4,12 +4,13 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-	Map<String, Object> dataMap = (Map<String, Object>)request.getAttribute("dataMap");
-	List<MemberVO> memberList = (List<MemberVO>)dataMap.get("memberList");
-	PageMaker pageMaker = (PageMaker)dataMap.get("pageMaker");
-%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="memberList" value="${dataMap.memberList }" />
+
 
 <!DOCTYPE html>
 <!--
@@ -59,30 +60,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
    	<section class="content">
    		<div class="card">
    			<div class="card-header with-border">
-   				<button type="button" class="btn btn-primary" onclick="" >회원등록</button>
+   				<button type="button" class="btn btn-primary" onclick="OpenWindow('regist','회원등록',800,800);" >회원등록</button>
    				<div id="keyword" class="card-tools" style="width:550px;">
    					 <div class="input-group row">
    					 	<!-- search bar -->
    					 	<!-- sort num -->
 					  	<select class="form-control col-md-3" name="perPageNum" 
-					  			id="perPageNum" onchange="lsit_do(1);">					  		  		
-					  		<option value="10" <%=pageMaker.getCri().getPerPageNum()==10 ? "selected":"" %>>정렬개수</option>
-					  		<option value="2"  <%=pageMaker.getCri().getPerPageNum()==2 ? "selected":"" %>>2개씩</option>
-					  		<option value="3" <%=pageMaker.getCri().getPerPageNum()==3 ? "selected":"" %>>3개씩</option>
-					  		<option value="5"  <%=pageMaker.getCri().getPerPageNum()==5 ? "selected":"" %>>5개씩</option>
+					  			id="perPageNum" onchange="list_go(1);">					  		  		
+					  		<option value="10" ${cri.perPageNum eq 10 ? 'selected' : '' } >정렬개수</option>
+					  		<option value="2" ${cri.perPageNum eq 2 ? 'selected' : '' }>2개씩</option>
+					  		<option value="3" ${cri.perPageNum eq 3 ? 'selected' : '' }>3개씩</option>
+					  		<option value="5" ${cri.perPageNum eq 5 ? 'selected' : '' }>5개씩</option>
 					  	</select>
+					  	
 					  	
 					  	<!-- search bar -->
 					 	<select class="form-control col-md-3" name="searchType" id="searchType">
 					 		<option value=""  >검색구분</option>
 							<option value="i" ${param.searchType=='i' ? "selected":"" } >아이디</option>
-							<option value="n" ${param.searchType=='i' ? "selected":"" } >이 름</option>
-							<option value="p" ${param.searchType=='i' ? "selected":"" } >전화번호</option>
-							<option value="e" ${param.searchType=='i' ? "selected":"" } >이메일</option>				 									
+							<option value="n" ${param.searchType=='n' ? "selected":"" }>이 름</option>
+							<option value="p" ${param.searchType=='p' ? "selected":"" }>전화번호</option>
+							<option value="e" ${param.searchType=='e' ? "selected":"" }>이메일</option>				 									
 						</select>
 						<!-- keyword -->
    					 	<input  class="form-control" type="text" name="keyword" 
-										placeholder="검색어를 입력하세요." value=""/>
+										placeholder="검색어를 입력하세요." value="${param.keyword}"/>
 						<span class="input-group-append">
 							<button class="btn btn-primary" type="button" 
 									id="searchBtn" data-card-widget="search" onclick="list_go(-1);">
@@ -93,7 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
    					 </div>
    				</div>   			
    			</div>
-   			<div class="card-body" style="text-align:center;height:76vh;">
+   			<div class="card-body" style="text-align:center;">
     		  <div class="row">
 	             <div class="col-sm-12">	
 		    		<table class="table table-bordered">
@@ -106,36 +108,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		                	<th>전화번호</th>
 		                	<th>등록날짜</th> <!-- yyyy-MM-dd  -->
 		               	</tr>
-		     
-		   <%
-				if (memberList!=null) {
-					for(MemberVO member : memberList){ 
-						// el문을 사용하기 위해 pageContext
-						pageContext.setAttribute("member",member);
-			%>
-						<tr style="text-align:center;cursor:pointer;">
-							<td>사진</td>
-							<td>${member.id }</td>
-							<td>${member.pwd }</td>
-							<td>${member.name }</td>
-							<td>${member.email }</td>
-							<td>${member.phone.replace('-', '') }</td>
-							<td>${member.regdate }</td>
-						</tr>
-			<%		
-					} // for문 끝
-				} else{
-			%>
-					<tr>
-						<td colspan="7" class="text-center">
-							해당 내용이 없습니다.
-						</td>
-					
-					</tr>
-			<%		
-				}
-			%>
-		     
+		     			<c:if test="${!empty memberList }" >
+		            		<c:forEach items="${memberList }" var="member">
+		     						
+		     				
+		     					 <tr  onclick="" style="cursor:pointer;">
+		            		  	   	<td>사진</td>
+		            		  	   	<td>${member.id }</td>
+				              		<td>${member.pwd }</td>
+				              		<td>${member.name }
+				              		<td>${member.email }</td>
+		            		  	   	<td>${member.phone.replace('-','')  }</td>
+		            		  	   	<td>
+		            		  	   		<fmt:formatDate value="${member.regdate }" pattern="yyyy-MM-dd"/>
+		            		  	   	</td>
+		            		  	  </tr>	
+		     					
+		     				</c:forEach>
+		            	</c:if>		
+		     			<c:if test="${empty memberList }" >
+			     			<tr>
+		            			<td colspan="7" class="text-center">
+		            				해당내용이 없습니다.
+		            			</td>
+		            		</tr>
+		     			</c:if>	
 		            </table>
     		     </div> <!-- col-sm-12 -->
     	       </div> <!-- row -->
@@ -145,29 +142,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     			<nav aria-label="Navigation">
 					<ul class="pagination justify-content-center m-0">
 						<li class="page-item">
-							<a class="page-link" href="javascript:list_go(1)">
+							<a class="page-link" href="javascript:list_go(1);">
 								<i class="fas fa-angle-double-left"></i>
 							</a>
-						</li>
 						<li class="page-item">
 							<a class="page-link" href="">
 								<i class="fas fa-angle-left"></i>
 							</a>						
 						</li>
 						
-						<%
-							int startPage = pageMaker.getStartPage();
-							int endPage = pageMaker.getEndPage();
-							int pageNum = pageMaker.getCri().getPage();
-							
-							for(int i = startPage; i < endPage+1; i++){
-						%>	
-							<li class="page-item  <%= (i == pageNum)? "active":"" %>">
-								<a class="page-link" href="javascript:list_go(<%=i %>)"><%=i %></a>
+						<c:forEach var="pageNum" begin="${pageMaker.startPage }" 
+												 end="${pageMaker.endPage }" >
+							<li class="page-item ${cri.page == pageNum?'active':''}">
+								<a class="page-link" href="javascript:list_go('${pageNum}');" >${pageNum }</a>
 							</li>
-						<%	
-							}
-						%>
+							
+						</c:forEach>
+						
 						
 						<li class="page-item">
 							<a class="page-link" href="">
@@ -188,11 +179,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   
   
-<form id="jobForm">
-	<input type='hidden' name="page" value="">
-	<input type='hidden' name="perPageNum" value="">
-	<input type='hidden' name="searchType" value="">
-	<input type='hidden' name="keyword" value="">
+<form id="jobForm">	
+	<input type='hidden' name="page" value="" />
+	<input type='hidden' name="perPageNum" value=""/>
+	<input type='hidden' name="searchType" value="" />
+	<input type='hidden' name="keyword" value="" />
 </form>
   
   
@@ -204,8 +195,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		var jobForm=$('#jobForm');
 		jobForm.find("[name='page']").val(page);
 		jobForm.find("[name='perPageNum']").val($('select[name="perPageNum"]').val());
-		jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
-		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
+		jobForm.find("[name='searchType']")
+			.val($('select[name="searchType"]').val());
+		jobForm.find("[name='keyword']")
+			.val($('div.input-group>input[name="keyword"]').val());
 		
 		jobForm.attr({
 			action:url,
@@ -213,6 +206,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		}).submit();
 		
 	}
+	
+	
   </script>
  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -244,5 +239,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
+
+<!-- common -->
+<script src="<%=request.getContextPath() %>/resources/js/common.js"></script>
 </body>
 </html>

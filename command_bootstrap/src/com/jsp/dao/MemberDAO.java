@@ -1,5 +1,6 @@
 package com.jsp.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,4 +18,16 @@ public interface MemberDAO {
 
 	// 일반 리스트 전체 개수
 	int selectMemberListCount(SqlSession session) throws Exception;
+
+	MemberVO selectMemberById(SqlSession session, String id) throws SQLException;
+
+	void insertMember(SqlSession session, MemberVO member) throws SQLException;
+
+	void updateMember(SqlSession session, MemberVO member) throws SQLException;
+
+	void deleteMember(SqlSession session, String id) throws SQLException;
+
+	void enabledMember(SqlSession session, String id, int enabled) throws SQLException;
+	
+	
 }

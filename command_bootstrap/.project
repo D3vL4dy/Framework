@@ -3,8 +3,6 @@
 	<name>command_bootstrap</name>
 	<comment></comment>
 	<projects>
-		<project>ojdbc6-11.2.0.3</project>
-		<project>mybatis-3.5.0</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

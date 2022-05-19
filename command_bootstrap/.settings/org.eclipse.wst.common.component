@@ -3,12 +3,6 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/res"/>
-        <dependent-module archiveName="ojdbc6-11.2.0.3.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/ojdbc6-11.2.0.3/ojdbc6-11.2.0.3">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="mybatis-3.5.0.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/mybatis-3.5.0/mybatis-3.5.0">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="command_bootstrap"/>
         <property name="java-output-path" value="/command_bootstrap/build/classes"/>
     </wb-module>
