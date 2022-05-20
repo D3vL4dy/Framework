@@ -5,27 +5,29 @@ public class PageMaker {
 	private int startPage = 1; // 시작 페이지 번호
 	private int endPage = 1; // 마지막 페이지 번호
 	private int realEndPage; // 끝 페이지 번호
-	private boolean prev; // 이전 페이지 버튼 유무
-	private boolean next; // 다음 페이지 버튼 유무
-
+	private boolean prev; // 이전페이지 버튼 유무
+	private boolean next; // 다음페이지 버튼 유무
+	
 	private int displayPageNum = 10; // 한 페이지에 보여줄 페이지번호 개수
-
+	
 	Criteria cri = new Criteria();
-
+	
 	// startPage, endPage, prev, next 설정. by totalCount
 	private void calcData() {
-		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
+		endPage = (int) (Math.ceil(cri.getPage()/(double) displayPageNum) * displayPageNum);
+		
 		startPage = (endPage - displayPageNum) + 1;
-		realEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
-
+		
+		realEndPage = (int) (Math.ceil(totalCount) / (double) cri.getPerPageNum());
+		
 		if (startPage < 0) {
 			startPage = 1;
-		}
-
+		} 
+		
 		if (endPage > realEndPage) {
 			endPage = realEndPage;
 		}
-
+		
 		prev = startPage == 1 ? false : true;
 		next = endPage >= realEndPage ? false : true;
 	}
@@ -36,7 +38,7 @@ public class PageMaker {
 
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
-		// totalCount 값이 들어온 후
+		
 		calcData();
 	}
 

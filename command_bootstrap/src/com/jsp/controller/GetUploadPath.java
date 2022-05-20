@@ -10,9 +10,8 @@ import org.apache.ibatis.io.Resources;
 public class GetUploadPath {
 	private static Properties properties = new Properties();
 	
-	// properties 파일이 객체화되는 과정
 	static {
-		String resource = "com/jsp/properties/uploadPath.properties";
+		String resource = "com/jsp/properties/upload.properties";
 		try {
 			Reader reader = Resources.getResourceAsReader(resource);
 			properties.load(reader);

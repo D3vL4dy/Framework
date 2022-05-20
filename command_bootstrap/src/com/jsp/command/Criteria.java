@@ -1,10 +1,9 @@
 package com.jsp.command;
 
 public class Criteria {
-
 	private int page = 1;
 	private int perPageNum = 10;
-
+	
 	private int startRowNum = 0;
 
 	public int getPage() {
@@ -12,12 +11,7 @@ public class Criteria {
 	}
 
 	public void setPage(int page) {
-		if (page < 1) {
-			this.page = 1;
-		} else {
-			this.page = page;
-		}
-		setStartRowNum();
+		this.page = page;
 	}
 
 	public int getPerPageNum() {
@@ -25,7 +19,7 @@ public class Criteria {
 	}
 
 	public void setPerPageNum(int perPageNum) {
-		if (perPageNum < 1) {
+		if(perPageNum < 1) {
 			this.perPageNum = 10;
 		} else {
 			this.perPageNum = perPageNum;
@@ -40,5 +34,5 @@ public class Criteria {
 	public void setStartRowNum() {
 		this.startRowNum = (this.page - 1) * perPageNum;
 	}
-
+	
 }

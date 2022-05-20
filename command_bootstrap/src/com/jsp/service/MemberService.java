@@ -12,8 +12,7 @@ public interface MemberService {
 	public List<MemberVO> getMemberList() throws Exception;
 	public List<MemberVO> getMemberList(Criteria cri) throws Exception;
 	
-	public Map<String,Object> getMemberListForPage(Criteria cri)
-													throws Exception;
+	public Map<String,Object> getMemberListForPage(Criteria cri) throws Exception;
 	
 	// 회원상세
 	public MemberVO getMember(String id) throws Exception;
@@ -22,12 +21,11 @@ public interface MemberService {
 	public void regist(MemberVO member) throws Exception;
 	
 	// 회원수정
-	public void modify (MemberVO member) throws Exception;
+	public void modify(MemberVO member) throws Exception;
 	
 	// 회원탈퇴
 	public void remove(String id) throws Exception;
 	
 	// 회원상태변경
-	void enabled (String id, int enabled) throws Exception;
-	
+	void enabled(String id, int enabled) throws Exception;
 }

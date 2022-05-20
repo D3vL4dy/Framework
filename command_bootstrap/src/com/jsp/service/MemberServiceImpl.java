@@ -95,7 +95,8 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberVO getMember(String id) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		try {
+		
+		try {			
 			MemberVO member = memberDAO.selectMemberById(session, id);
 			return member;
 		} finally {
@@ -106,9 +107,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void regist(MemberVO member) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		try {
+		
+		try {			
 			memberDAO.insertMember(session, member);
-		} finally{
+		} finally {
 			session.close();
 		}
 		
@@ -117,9 +119,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void modify(MemberVO member) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		try {
+		
+		try {			
 			memberDAO.updateMember(session, member);
-		} finally{
+		} finally {
 			session.close();
 		}
 		
@@ -128,9 +131,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void remove(String id) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		try {
+		
+		try {			
 			memberDAO.deleteMember(session, id);
-		} finally{
+		} finally {
 			session.close();
 		}
 		
@@ -139,9 +143,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void enabled(String id, int enabled) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		try {
+		
+		try {			
 			memberDAO.enabledMember(session, id, enabled);
-		} finally{
+		} finally {
 			session.close();
 		}
 		
@@ -149,4 +154,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	
 }
+
+
+
+
+
 
