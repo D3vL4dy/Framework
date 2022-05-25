@@ -7,8 +7,11 @@ import org.junit.Test;
 
 import com.jsp.dto.MemberVO;
 
+
 public class TestMemberServiceImpl {
+	
 	private MemberService service = new MemberServiceImpl();
+	
 	
 	@Test
 	public void testGetMemberList()throws Exception{
@@ -17,3 +20,10 @@ public class TestMemberServiceImpl {
 		Assert.assertEquals(7, memberList.size());
 	}
 }
+
+
+
+
+
+
+

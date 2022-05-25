@@ -11,16 +11,22 @@ import com.jsp.command.Criteria;
 import com.jsp.command.PageMaker;
 import com.jsp.dao.MemberDAO;
 import com.jsp.dao.MemberDAOImpl;
-import com.jsp.dataSource.OracleMybatisSqlSessionFactory;
+import com.jsp.datasource.OracleMybatisSqlSessionFactory;
 import com.jsp.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService{
 	
-	private SqlSessionFactory sqlSessionFactory
-		=new OracleMybatisSqlSessionFactory();
-	private MemberDAO memberDAO = new MemberDAOImpl();
+	private SqlSessionFactory sqlSessionFactory;	
+	private MemberDAO memberDAO;
+		
 	
-	
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
 		SqlSession session= sqlSessionFactory.openSession(false);
@@ -91,24 +97,24 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return dataMap;
 	}
-
+	
 	@Override
 	public MemberVO getMember(String id) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		
-		try {			
+		try {
+
 			MemberVO member = memberDAO.selectMemberById(session, id);
 			return member;
 		} finally {
 			session.close();
-		}
+		}	
 	}
 
 	@Override
 	public void regist(MemberVO member) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		
-		try {			
+		try {
+
 			memberDAO.insertMember(session, member);
 		} finally {
 			session.close();
@@ -119,20 +125,20 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void modify(MemberVO member) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		
-		try {			
+		try {
+
 			memberDAO.updateMember(session, member);
 		} finally {
 			session.close();
 		}
-		
+
 	}
 
 	@Override
 	public void remove(String id) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		
-		try {			
+		try {
+
 			memberDAO.deleteMember(session, id);
 		} finally {
 			session.close();
@@ -143,16 +149,14 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void enabled(String id, int enabled) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		
-		try {			
+		try {
+
 			memberDAO.enabledMember(session, id, enabled);
 		} finally {
 			session.close();
 		}
 		
 	}
-	
-	
 }
 
 

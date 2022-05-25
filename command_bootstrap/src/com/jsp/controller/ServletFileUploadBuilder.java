@@ -8,19 +8,26 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class ServletFileUploadBuilder {
 	
-	public static ServletFileUpload  build(int MEMORY_THRESHOLD, int MAX_FILE_SIZE, int MAX_REQUEST_SIZE) {
-	
+	public static ServletFileUpload build(int MEMORY_THRESHOLD, 
+										  int MAX_FILE_SIZE, 
+		                                  int MAX_REQUEST_SIZE) {
+		
+		
+
+		// 업로드를 위한 upload 환경설정 적용.
 		DiskFileItemFactory factory = new DiskFileItemFactory();
-		
-		factory.setSizeThreshold(MEMORY_THRESHOLD); // 바가지 사이즈 설정
+		// 저장을 위한 threshold memory 적용.
+		factory.setSizeThreshold(MEMORY_THRESHOLD);
+		// 임시 저장 위치 결정.
 		factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
-		
+
 		ServletFileUpload upload = new ServletFileUpload(factory);
-		
-		upload.setFileSizeMax(MAX_FILE_SIZE); // 파일의 크기가 얼만지
-		
-		upload.setSizeMax(MAX_REQUEST_SIZE); // 파일의 갯수가 몇갠지
-		
+
+		// 업로드 파일의 크기 적용.
+		upload.setFileSizeMax(MAX_FILE_SIZE);
+		// 업로드 request 크기 적용.
+		upload.setSizeMax(MAX_REQUEST_SIZE);
+
 		return upload;
 	}
 }

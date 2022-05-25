@@ -1,8 +1,8 @@
 package com.jsp.exception;
 
-public class NotMultiPartFormDataException extends Exception {
-
-	public NotMultiPartFormDataException() {
+public class NotMultipartFormDataException extends Exception {
+	
+	public NotMultipartFormDataException() {
 		super("Multipart 형식이 아닙니다.");
 	}
 }

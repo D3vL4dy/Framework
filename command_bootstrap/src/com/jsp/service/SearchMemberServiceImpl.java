@@ -12,15 +12,30 @@ import com.jsp.command.PageMaker;
 import com.jsp.command.SearchCriteria;
 import com.jsp.dao.SearchMemberDAO;
 import com.jsp.dao.SearchMemberDAOImpl;
-import com.jsp.dataSource.OracleMybatisSqlSessionFactory;
+import com.jsp.datasource.OracleMybatisSqlSessionFactory;
 import com.jsp.dto.MemberVO;
 import com.jsp.exception.NotMatchSearchCriteria;
 
 public class SearchMemberServiceImpl extends MemberServiceImpl {
 
-	private SqlSessionFactory sqlSessionFactory=new OracleMybatisSqlSessionFactory();
-	private SearchMemberDAO memberDAO = new SearchMemberDAOImpl();
-	
+	private SqlSessionFactory sqlSessionFactory;	
+	private SearchMemberDAO memberDAO;	
+
+
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		super.setSqlSessionFactory(sqlSessionFactory);
+		this.sqlSessionFactory = sqlSessionFactory;
+		
+	}
+	public void setMemberDAO(SearchMemberDAO memberDAO) {
+		super.setMemberDAO(memberDAO);
+		this.memberDAO = memberDAO;
+	}
+
+
+
+
+
 	@Override
 	public Map<String,Object> getMemberListForPage(Criteria cri) throws Exception {
 		
