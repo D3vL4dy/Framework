@@ -41,15 +41,15 @@ public class MemberRemoveAction implements Action {
 		// DB 삭제
 		memberService.remove(id);
 		
-		// loginUser 확인
+		//loginUser  확인
 		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
-		if(loginUser != null && member.getId().equals(loginUser.getId())){
+		if(loginUser!=null && member.getId().equals(loginUser.getId())) {
 			session.invalidate();
 		}
 		
-		request.setAttribute("member", member);
+		request.setAttribute("member", member);		
 		
 		return url;
 		
