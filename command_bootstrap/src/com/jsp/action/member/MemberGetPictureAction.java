@@ -12,29 +12,29 @@ import com.jsp.service.MemberService;
 public class MemberGetPictureAction implements Action {
 
 	private MemberService memberService;
+
 	public void setSearchMemberService(MemberService memberService) {
-		this.memberService=memberService;
+		this.memberService = memberService;
 	}
-	
-	
+
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String url=null;
+		String url = null;
 
 		String id = request.getParameter("id");
 		try {
 			MemberVO member = memberService.getMember(id);
-			
-			String fileName = member.getPicture();		
-			String savedPath = GetUploadPath.getUploadPath("member.picture.upload");	
-			
-			FileDownloadResolver.sendFile(fileName,savedPath,request,response);
-		
-		}catch(Exception e) {
+
+			String fileName = member.getPicture();
+			String savedPath = GetUploadPath.getUploadPath("member.picture.upload");
+
+			FileDownloadResolver.sendFile(fileName, savedPath, request, response);
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 		}
-		
+
 		return url;
 	}
 

@@ -10,94 +10,94 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.jsp.command.Criteria;
 import com.jsp.command.PageMaker;
 import com.jsp.dao.MemberDAO;
-import com.jsp.dao.MemberDAOImpl;
-import com.jsp.datasource.OracleMybatisSqlSessionFactory;
 import com.jsp.dto.MemberVO;
 
-public class MemberServiceImpl implements MemberService{
-	
-	private SqlSessionFactory sqlSessionFactory;	
+public class MemberServiceImpl implements MemberService {
+
+	private SqlSessionFactory sqlSessionFactory;
 	private MemberDAO memberDAO;
-		
-	
+
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
+
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}
 
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
-		SqlSession session= sqlSessionFactory.openSession(false);
+		SqlSession session = sqlSessionFactory.openSession(false);
 		List<MemberVO> memberList = null;
-		
+
 		try {
 			memberList = memberDAO.selectMemberList(session);
-			
+
 			session.commit();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			session.rollback();
 			e.printStackTrace();
 			throw e;
-		}finally {
-			if(session!=null) session.close();
+		} finally {
+			if (session != null)
+				session.close();
 		}
 		return memberList;
 	}
-	
+
 	@Override
 	public List<MemberVO> getMemberList(Criteria cri) throws Exception {
-		SqlSession session= sqlSessionFactory.openSession(false);
+		SqlSession session = sqlSessionFactory.openSession(false);
 		List<MemberVO> memberList = null;
-		
+
 		try {
-			memberList = memberDAO.selectMemberList(session,cri);
-			
+			memberList = memberDAO.selectMemberList(session, cri);
+
 			session.commit();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			session.rollback();
 			e.printStackTrace();
 			throw e;
-		}finally {
-			if(session!=null) session.close();
+		} finally {
+			if (session != null)
+				session.close();
 		}
 		return memberList;
 	}
 
 	@Override
 	public Map<String, Object> getMemberListForPage(Criteria cri) throws Exception {
-		SqlSession session= sqlSessionFactory.openSession(false);
-		Map<String,Object> dataMap =null;
-		
+		SqlSession session = sqlSessionFactory.openSession(false);
+		Map<String, Object> dataMap = null;
+
 		try {
-			
-			//처리.......
-			List<MemberVO> memberList 
-				= memberDAO.selectMemberList(session, cri);
-			
+
+			// 처리.......
+			List<MemberVO> memberList = memberDAO.selectMemberList(session, cri);
+
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(memberDAO.selectMemberListCount(session));
-			
-			dataMap = new HashMap<String,Object>();
+
+			dataMap = new HashMap<String, Object>();
 			dataMap.put("memberList", memberList);
-			dataMap.put("pageMaker",pageMaker);
-			
+			dataMap.put("pageMaker", pageMaker);
+
 			session.commit();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			session.rollback();
 			e.printStackTrace();
 			throw e;
-		}finally {
-			if(session!=null) session.close();
+		} finally {
+			if (session != null)
+				session.close();
 		}
 		return dataMap;
 	}
-	
+
 	@Override
 	public MemberVO getMember(String id) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
@@ -107,7 +107,7 @@ public class MemberServiceImpl implements MemberService{
 			return member;
 		} finally {
 			session.close();
-		}	
+		}
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class MemberServiceImpl implements MemberService{
 		} finally {
 			session.close();
 		}
-		
+
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class MemberServiceImpl implements MemberService{
 		} finally {
 			session.close();
 		}
-		
+
 	}
 
 	@Override
@@ -155,12 +155,6 @@ public class MemberServiceImpl implements MemberService{
 		} finally {
 			session.close();
 		}
-		
+
 	}
 }
-
-
-
-
-
-

@@ -5,14 +5,9 @@ import java.io.File;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-
 public class ServletFileUploadBuilder {
-	
-	public static ServletFileUpload build(int MEMORY_THRESHOLD, 
-										  int MAX_FILE_SIZE, 
-		                                  int MAX_REQUEST_SIZE) {
-		
-		
+
+	public static ServletFileUpload build(int MEMORY_THRESHOLD, int MAX_FILE_SIZE, int MAX_REQUEST_SIZE) {
 
 		// 업로드를 위한 upload 환경설정 적용.
 		DiskFileItemFactory factory = new DiskFileItemFactory();

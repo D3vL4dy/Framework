@@ -6,24 +6,20 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HttpRequestParameterAdapter {
 
-	public static <T>T execute(HttpServletRequest request, 
-								Class<T> className) throws Exception {
-		//의존성 확인 및 조립
+	public static <T> T execute(HttpServletRequest request, Class<T> className) throws Exception {
+		// 의존성 확인 및 조립
 		Method[] methods = className.getMethods();
 
-		//인스턴스 생성
+		// 인스턴스 생성
 		T obj = className.newInstance();
 
-		//setter 확인
+		// setter 확인
 		for (Method method : methods) {
 			if (method.getName().indexOf("set") == 0) {
 				String requestParamName = method.getName().replace("set", "");
-				requestParamName = (requestParamName.charAt(0) + "")
-						.toLowerCase()
-						+ requestParamName.substring(1);
+				requestParamName = (requestParamName.charAt(0) + "").toLowerCase() + requestParamName.substring(1);
 
-				String[] paramValues 
-						= request.getParameterValues(requestParamName);
+				String[] paramValues = request.getParameterValues(requestParamName);
 
 				if (paramValues != null && paramValues.length > 0) {
 					if (method.getParameterTypes()[0].isArray()) {

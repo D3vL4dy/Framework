@@ -7,13 +7,9 @@ import java.util.List;
 import org.apache.commons.fileupload.FileItem;
 
 public class FileUploadResolver {
-	
-	
 
-	public static List<File> fileUpload(FileItem[] items, 
-										String uploadPath)
-											throws Exception{
-		
+	public static List<File> fileUpload(FileItem[] items, String uploadPath) throws Exception {
+
 		List<File> uploadFileList = new ArrayList<File>();
 
 		File file = new File(uploadPath);
@@ -40,11 +36,3 @@ public class FileUploadResolver {
 		return uploadFileList;
 	}
 }
-
-
-
-
-
-
-
-

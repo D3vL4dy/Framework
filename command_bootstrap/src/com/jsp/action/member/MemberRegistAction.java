@@ -12,33 +12,33 @@ import com.jsp.service.MemberService;
 public class MemberRegistAction implements Action {
 
 	private MemberService memberService;
+
 	public void setSearchMemberService(MemberService memberService) {
-		this.memberService=memberService;
+		this.memberService = memberService;
 	}
-	
+
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//화면
-		String url="/member/regist_success";
-				
-		//입력
+		// 화면
+		String url = "/member/regist_success";
+
+		// 입력
 		try {
-			
+
 			request.setCharacterEncoding("utf-8");
-			
-			MemberRegistCommand command =HttpRequestParameterAdapter.execute(request,
-							MemberRegistCommand.class );
+
+			MemberRegistCommand command = HttpRequestParameterAdapter.execute(request, MemberRegistCommand.class);
 			MemberVO member = command.toMemberVO();
-					
-			//처리
+
+			// 처리
 			memberService.regist(member);
-		
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			//exception 처리.....
-			url="/member/regist_fail";
+			// exception 처리.....
+			url = "/member/regist_fail";
 		}
-		
+
 		return url;
 	}
 

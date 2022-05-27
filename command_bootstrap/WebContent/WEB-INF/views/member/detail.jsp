@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ include file="/WEB-INF/include/header.jsp" %>
+<%-- <%@ include file="/WEB-INF/include/header.jsp" %> --%>
 
 <div class="wrapper">
   <div >
@@ -109,4 +109,4 @@ window.onload=function(){
 </script>
   
 
-<%@ include file="/WEB-INF/include/footer.jsp" %>
+<%-- <%@ include file="/WEB-INF/include/footer.jsp" %> --%>

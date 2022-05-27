@@ -9,19 +9,19 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.jsp.dao.MenuDAO;
 import com.jsp.dto.MenuVO;
 
-public class MenuServiceImpl implements MenuService{
+public class MenuServiceImpl implements MenuService {
 	private SqlSessionFactory sqlSessionFactory;// = new OracleMyBatisSqlSessionFactory();
 
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
-	
+
 	private MenuDAO menuDAO;// = new MenuDAOImpl();
 
 	public void setMenuDAO(MenuDAO menuDAO) {
 		this.menuDAO = menuDAO;
 	}
-	
+
 	@Override
 	public List<MenuVO> getMainMenuList() throws SQLException {
 
@@ -77,5 +77,5 @@ public class MenuServiceImpl implements MenuService{
 
 		return menu;
 	}
-	
+
 }

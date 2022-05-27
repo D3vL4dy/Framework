@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<%@ include file="/WEB-INF/include/header.jsp" %>
-
+<%-- <%@ include file="/WEB-INF/include/header.jsp" %> --%>
 
   <!-- Content Wrapper. Contains page content -->
   <div>
@@ -170,7 +169,7 @@
  	 
   </script>
   
-<%@ include file="/WEB-INF/include/footer.jsp" %>
+<%-- <%@ include file="/WEB-INF/include/footer.jsp" %> --%>
 
 
 
