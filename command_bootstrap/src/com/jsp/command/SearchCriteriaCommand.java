@@ -35,7 +35,7 @@ public class SearchCriteriaCommand {
    public SearchCriteria toSearchCriteria() {
       SearchCriteria cri = new SearchCriteria();
       
-      if(page !=null && page.isEmpty()) {
+      if(page !=null && !page.isEmpty()) {
          cri.setPage(Integer.parseInt(page));
       }
       if(perPageNum !=null && !perPageNum.isEmpty()) {
