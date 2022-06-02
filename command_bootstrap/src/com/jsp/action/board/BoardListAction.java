@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jsp.action.Action;
-import com.jsp.command.SearchCriteria;
+import com.jsp.command.Criteria;
 import com.jsp.command.SearchCriteriaCommand;
 import com.jsp.controller.HttpRequestParameterAdapter;
 import com.jsp.service.BoardService;
@@ -23,22 +23,20 @@ public class BoardListAction implements Action {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "/board/list";
 
-		SearchCriteria cri = null;
 		try {
-			SearchCriteriaCommand command = HttpRequestParameterAdapter.execute(request, SearchCriteriaCommand.class);
-			cri = command.toSearchCriteria();
 
-			// 처리
+			SearchCriteriaCommand criCMD = HttpRequestParameterAdapter.execute(request, SearchCriteriaCommand.class);
+
+			Criteria cri = criCMD.toSearchCriteria();
+
 			Map<String, Object> dataMap = boardService.getBoardList(cri);
 			request.setAttribute("dataMap", dataMap);
 		} catch (Exception e) {
 			e.printStackTrace();
-			// response.sendError(response.SC_INTERNAL_SERVER_ERROR);
-			// url=null;
+			// url="/error/500.jsp";
 			throw e;
 		}
 
-		// 출력
 		return url;
 	}
 
