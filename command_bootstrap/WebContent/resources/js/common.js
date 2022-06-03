@@ -29,7 +29,7 @@ function MemberPictureThumb(contextPath){
 	}
 }
 
-// pagination function
+//pagination func
 function list_go(page,url){
 	//alert(page);
 	if(!url) url="list.do";
@@ -51,7 +51,7 @@ function list_go(page,url){
 
 var contextPath="";
 
-function summernote_go(target, context){
+function summernote_go(target,context){
 	contextPath=context;
 	
 	target.summernote({
@@ -72,22 +72,25 @@ function summernote_go(target, context){
 						alert("이미지는 5MB 미만입니다.");
 						return;
 					}	
+					
 				}
 				
+	
 				for (var file of files) {
 					sendFile(file,this);
 				}
 			},
-			onMediaDelete : function(target){ // target : 지워진 태그
+			onMediaDelete : function(target) {
 				//alert(target[0].src);
 				//alert(target.attr("src"));
-				deleteFile(target[0].src);
+				deleteFile(target[0].src);	
 			}
+	
 		}
 	});
 }
 
-
+	
 function sendFile(file, el) {
 	var form_data = new FormData();
 	form_data.append("file", file); 
@@ -97,7 +100,7 @@ function sendFile(file, el) {
     	type: "POST",	    	
     	contentType: false,	    	
     	processData: false,
-    	success: function(img_url) {
+    	success: function(img_url) {    		
     		$(el).summernote('editor.insertImage', img_url);
     	},
     	error:function(){
@@ -106,16 +109,15 @@ function sendFile(file, el) {
 	});
 }
 
-
-function deleteFile(src){
-	var splitSrc = src.split("=");
+function deleteFile(src) {		
+	var splitSrc= src.split("=");
 	var fileName = splitSrc[splitSrc.length-1];
 	
-	var fileData = {fileName : fileName};
+	var fileData = {fileName:fileName};
 	
 	$.ajax({
 		url:contextPath+"/deleteImg.do",
-		data:JSON.stringify(fileData),
+		data : JSON.stringify(fileData),
 		type:"post",
 		contentType:"application/json",
 		success:function(res){
@@ -126,4 +128,25 @@ function deleteFile(src){
 		}
 	});
 }
+
+//redirect loginForm
+function AjaxErrorSecurityRedirectHandler(status) {
+	if (status == "302") {
+		alert("세션이 만료되었습니다.\n로그인 하세요.");
+		location.reload();
+
+	}else if(status == "403"){
+		alert("권한이 유효하지 않습니다.");
+		history.go(-1);		
+	}else if(status == "404"){
+		alert("해당 페이지를 찾을수 없습니다.");
+	}else {
+		alert("시스템장애로 실행이 불가합니다.");
+		history.go(-1);
+	}
+
+}
+
+
+
 
