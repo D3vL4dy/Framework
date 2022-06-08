@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
     
 <title>자료실 상세보기</title>
 
@@ -103,4 +101,10 @@
          </div><!-- end col-md-12 -->
       </div><!-- end row  -->      
     </section>
+    
+  <script>
+  	function submit_go(url, pno){
+  		location.href=url+"?pno="+pno;
+  	}
+  </script>
  </body>

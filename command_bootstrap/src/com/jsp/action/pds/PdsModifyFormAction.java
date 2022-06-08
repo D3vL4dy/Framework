@@ -17,7 +17,7 @@ public class PdsModifyFormAction implements Action {
 
 	public PdsService pdsService;
 
-	public void setPdsServie(PdsService pdsService) {
+	public void setPdsService(PdsService pdsService) {
 		this.pdsService = pdsService;
 
 	}
